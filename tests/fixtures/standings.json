@@ -1,0 +1,499 @@
+{
+ "copyright": "Copyright 2025 MLB Advanced Media, L.P.",
+ "records": [
+  {
+   "standingsType": "regularSeason",
+   "league": {
+    "id": 103,
+    "name": "American League"
+   },
+   "division": {
+    "id": 200,
+    "name": "American League West",
+    "nameShort": "AL West"
+   },
+   "sport": {
+    "id": 1
+   },
+   "teamRecords": [
+    {
+     "team": {
+      "id": 117,
+      "name": "Houston Astros",
+      "abbreviation": "HOU"
+     },
+     "streak": {
+      "streakType": "W",
+      "streakNumber": 3,
+      "streakCode": "W3"
+     },
+     "divisionRank": "1",
+     "leagueRank": "1",
+     "wins": 68,
+     "losses": 54,
+     "winningPercentage": ".557",
+     "gamesBack": "-",
+     "wildCardGamesBack": "+2.0",
+     "runDifferential": 61,
+     "runsScored": 560,
+     "runsAllowed": 499,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 38,
+        "losses": 23,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 30,
+        "losses": 31,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 7,
+        "losses": 3,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 136,
+      "name": "Seattle Mariners",
+      "abbreviation": "SEA"
+     },
+     "streak": {
+      "streakType": "L",
+      "streakNumber": 1,
+      "streakCode": "L1"
+     },
+     "divisionRank": "2",
+     "leagueRank": "2",
+     "wins": 66,
+     "losses": 56,
+     "winningPercentage": ".541",
+     "gamesBack": "2.0",
+     "wildCardGamesBack": "-",
+     "runDifferential": 44,
+     "runsScored": 560,
+     "runsAllowed": 516,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 36,
+        "losses": 25,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 30,
+        "losses": 31,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 6,
+        "losses": 4,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 140,
+      "name": "Texas Rangers",
+      "abbreviation": "TEX"
+     },
+     "streak": {
+      "streakType": "W",
+      "streakNumber": 1,
+      "streakCode": "W1"
+     },
+     "divisionRank": "3",
+     "leagueRank": "3",
+     "wins": 62,
+     "losses": 60,
+     "winningPercentage": ".508",
+     "gamesBack": "6.0",
+     "wildCardGamesBack": "4.0",
+     "runDifferential": 12,
+     "runsScored": 560,
+     "runsAllowed": 548,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 33,
+        "losses": 28,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 29,
+        "losses": 32,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 5,
+        "losses": 5,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 133,
+      "name": "Athletics",
+      "abbreviation": "ATH"
+     },
+     "streak": {
+      "streakType": "L",
+      "streakNumber": 4,
+      "streakCode": "L4"
+     },
+     "divisionRank": "4",
+     "leagueRank": "4",
+     "wins": 54,
+     "losses": 69,
+     "winningPercentage": ".439",
+     "gamesBack": "14.5",
+     "wildCardGamesBack": "12.5",
+     "runDifferential": -78,
+     "runsScored": 560,
+     "runsAllowed": 638,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 29,
+        "losses": 32,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 25,
+        "losses": 37,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 3,
+        "losses": 7,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 108,
+      "name": "Los Angeles Angels",
+      "abbreviation": "LAA"
+     },
+     "streak": {
+      "streakType": "W",
+      "streakNumber": 2,
+      "streakCode": "W2"
+     },
+     "divisionRank": "5",
+     "leagueRank": "5",
+     "wins": 53,
+     "losses": 69,
+     "winningPercentage": ".434",
+     "gamesBack": "15.0",
+     "wildCardGamesBack": "13.0",
+     "runDifferential": -95,
+     "runsScored": 560,
+     "runsAllowed": 655,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 28,
+        "losses": 33,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 25,
+        "losses": 36,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 4,
+        "losses": 6,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "standingsType": "regularSeason",
+   "league": {
+    "id": 103,
+    "name": "American League"
+   },
+   "division": {
+    "id": 201,
+    "name": "American League East",
+    "nameShort": "AL East"
+   },
+   "sport": {
+    "id": 1
+   },
+   "teamRecords": [
+    {
+     "team": {
+      "id": 141,
+      "name": "Toronto Blue Jays",
+      "abbreviation": "TOR"
+     },
+     "streak": {
+      "streakType": "W",
+      "streakNumber": 4,
+      "streakCode": "W4"
+     },
+     "divisionRank": "1",
+     "leagueRank": "1",
+     "wins": 72,
+     "losses": 50,
+     "winningPercentage": ".590",
+     "gamesBack": "-",
+     "wildCardGamesBack": "+5.0",
+     "runDifferential": 88,
+     "runsScored": 560,
+     "runsAllowed": 472,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 40,
+        "losses": 21,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 32,
+        "losses": 29,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 8,
+        "losses": 2,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 147,
+      "name": "New York Yankees",
+      "abbreviation": "NYY"
+     },
+     "streak": {
+      "streakType": "W",
+      "streakNumber": 1,
+      "streakCode": "W1"
+     },
+     "divisionRank": "2",
+     "leagueRank": "2",
+     "wins": 70,
+     "losses": 52,
+     "winningPercentage": ".574",
+     "gamesBack": "2.0",
+     "wildCardGamesBack": "+3.0",
+     "runDifferential": 105,
+     "runsScored": 560,
+     "runsAllowed": 455,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 37,
+        "losses": 24,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 33,
+        "losses": 28,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 6,
+        "losses": 4,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 139,
+      "name": "Tampa Bay Rays",
+      "abbreviation": "TB"
+     },
+     "streak": {
+      "streakType": "L",
+      "streakNumber": 2,
+      "streakCode": "L2"
+     },
+     "divisionRank": "3",
+     "leagueRank": "3",
+     "wins": 63,
+     "losses": 59,
+     "winningPercentage": ".516",
+     "gamesBack": "9.0",
+     "wildCardGamesBack": "1.0",
+     "runDifferential": 18,
+     "runsScored": 560,
+     "runsAllowed": 542,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 34,
+        "losses": 27,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 29,
+        "losses": 32,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 5,
+        "losses": 5,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 110,
+      "name": "Baltimore Orioles",
+      "abbreviation": "BAL"
+     },
+     "streak": {
+      "streakType": "W",
+      "streakNumber": 1,
+      "streakCode": "W1"
+     },
+     "divisionRank": "4",
+     "leagueRank": "4",
+     "wins": 55,
+     "losses": 66,
+     "winningPercentage": ".455",
+     "gamesBack": "16.5",
+     "wildCardGamesBack": "8.5",
+     "runDifferential": -47,
+     "runsScored": 560,
+     "runsAllowed": 607,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 30,
+        "losses": 31,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 25,
+        "losses": 35,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 6,
+        "losses": 4,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    },
+    {
+     "team": {
+      "id": 111,
+      "name": "Boston Red Sox",
+      "abbreviation": "BOS"
+     },
+     "streak": {
+      "streakType": "L",
+      "streakNumber": 1,
+      "streakCode": "L1"
+     },
+     "divisionRank": "5",
+     "leagueRank": "5",
+     "wins": 67,
+     "losses": 56,
+     "winningPercentage": ".545",
+     "gamesBack": "5.5",
+     "wildCardGamesBack": "-",
+     "runDifferential": 51,
+     "runsScored": 560,
+     "runsAllowed": 509,
+     "records": {
+      "splitRecords": [
+       {
+        "wins": 35,
+        "losses": 26,
+        "type": "home",
+        "pct": ".600"
+       },
+       {
+        "wins": 32,
+        "losses": 30,
+        "type": "away",
+        "pct": ".500"
+       }
+      ],
+      "overallRecords": [
+       {
+        "wins": 7,
+        "losses": 3,
+        "type": "lastTen",
+        "pct": ".600"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

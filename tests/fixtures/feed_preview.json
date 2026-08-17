@@ -1,0 +1,109 @@
+{
+ "copyright": "Copyright 2025 MLB Advanced Media, L.P.",
+ "gamePk": 776545,
+ "link": "/api/v1.1/game/776543/feed/live",
+ "metaData": {
+  "wait": 10,
+  "timeStamp": "20250816_233015"
+ },
+ "gameData": {
+  "game": {
+   "pk": 776545,
+   "type": "R",
+   "season": "2025",
+   "gameNumber": 1,
+   "doubleHeader": "N"
+  },
+  "datetime": {
+   "dateTime": "2025-08-16T23:05:00Z",
+   "originalDate": "2025-08-16",
+   "officialDate": "2025-08-16",
+   "dayNight": "night",
+   "time": "7:05",
+   "ampm": "PM"
+  },
+  "status": {
+   "abstractGameState": "Preview",
+   "codedGameState": "S",
+   "detailedState": "Scheduled",
+   "statusCode": "S",
+   "abstractGameCode": "P"
+  },
+  "teams": {
+   "away": {
+    "id": 136,
+    "name": "Seattle Mariners",
+    "abbreviation": "SEA",
+    "teamName": "Mariners",
+    "locationName": "Seattle",
+    "record": {
+     "wins": 68,
+     "losses": 54
+    }
+   },
+   "home": {
+    "id": 147,
+    "name": "New York Yankees",
+    "abbreviation": "NYY",
+    "teamName": "Yankees",
+    "locationName": "New York",
+    "record": {
+     "wins": 70,
+     "losses": 52
+    }
+   }
+  },
+  "players": {},
+  "venue": {
+   "id": 3313,
+   "name": "Yankee Stadium",
+   "location": {
+    "city": "Bronx",
+    "stateAbbrev": "NY"
+   }
+  },
+  "weather": {
+   "condition": "Partly Cloudy",
+   "temp": "78",
+   "wind": "8 mph, L To R"
+  },
+  "gameInfo": {
+   "attendance": 44219,
+   "firstPitch": "2025-08-16T23:08:00Z"
+  },
+  "probablePitchers": {
+   "away": {
+    "id": 669373,
+    "fullName": "Bryan Woo"
+   },
+   "home": {
+    "id": 543037,
+    "fullName": "Gerrit Cole"
+   }
+  }
+ },
+ "liveData": {
+  "plays": {
+   "allPlays": [],
+   "currentPlay": null,
+   "scoringPlays": []
+  },
+  "linescore": {
+   "currentInning": 0,
+   "scheduledInnings": 9,
+   "innings": [],
+   "teams": {
+    "home": {},
+    "away": {}
+   }
+  },
+  "boxscore": {
+   "teams": {
+    "away": {},
+    "home": {}
+   }
+  },
+  "decisions": {},
+  "leaders": {}
+ }
+}

@@ -1,0 +1,225 @@
+{
+ "copyright": "Copyright 2025 MLB Advanced Media, L.P.",
+ "totalGames": 3,
+ "dates": [
+  {
+   "date": "2025-08-16",
+   "totalGames": 3,
+   "games": [
+    {
+     "gamePk": 776543,
+     "gameGuid": "aaaa-bbbb",
+     "link": "/api/v1.1/game/776543/feed/live",
+     "gameType": "R",
+     "season": "2025",
+     "gameDate": "2025-08-16T23:05:00Z",
+     "status": {
+      "abstractGameState": "Live",
+      "codedGameState": "I",
+      "detailedState": "In Progress",
+      "statusCode": "I",
+      "abstractGameCode": "L"
+     },
+     "teams": {
+      "away": {
+       "leagueRecord": {
+        "wins": 68,
+        "losses": 54,
+        "pct": ".556"
+       },
+       "team": {
+        "id": 136,
+        "name": "Seattle Mariners",
+        "abbreviation": "SEA",
+        "teamName": "Mariners",
+        "link": "/api/v1/teams/136"
+       },
+       "score": 4
+      },
+      "home": {
+       "leagueRecord": {
+        "wins": 70,
+        "losses": 52,
+        "pct": ".556"
+       },
+       "team": {
+        "id": 147,
+        "name": "New York Yankees",
+        "abbreviation": "NYY",
+        "teamName": "Yankees",
+        "link": "/api/v1/teams/147"
+       },
+       "score": 3
+      }
+     },
+     "linescore": {
+      "currentInning": 7,
+      "currentInningOrdinal": "7th",
+      "inningState": "Bottom",
+      "inningHalf": "Bottom",
+      "isTopInning": false,
+      "scheduledInnings": 9,
+      "teams": {
+       "away": {
+        "runs": 4,
+        "hits": 9,
+        "errors": 0
+       },
+       "home": {
+        "runs": 3,
+        "hits": 7,
+        "errors": 1
+       }
+      }
+     },
+     "venue": {
+      "id": 3313,
+      "name": "Yankee Stadium"
+     },
+     "seriesDescription": "Regular Season",
+     "gameNumber": 1,
+     "doubleHeader": "N"
+    },
+    {
+     "gamePk": 776544,
+     "link": "/api/v1.1/game/776544/feed/live",
+     "gameType": "R",
+     "season": "2025",
+     "gameDate": "2025-08-16T17:10:00Z",
+     "status": {
+      "abstractGameState": "Final",
+      "codedGameState": "F",
+      "detailedState": "Final",
+      "statusCode": "F",
+      "abstractGameCode": "F"
+     },
+     "teams": {
+      "away": {
+       "leagueRecord": {
+        "wins": 71,
+        "losses": 51,
+        "pct": ".556"
+       },
+       "team": {
+        "id": 112,
+        "name": "Chicago Cubs",
+        "abbreviation": "CHC",
+        "teamName": "Cubs",
+        "link": "/api/v1/teams/112"
+       },
+       "score": 2
+      },
+      "home": {
+       "leagueRecord": {
+        "wins": 75,
+        "losses": 47,
+        "pct": ".556"
+       },
+       "team": {
+        "id": 158,
+        "name": "Milwaukee Brewers",
+        "abbreviation": "MIL",
+        "teamName": "Brewers",
+        "link": "/api/v1/teams/158"
+       },
+       "score": 6
+      }
+     },
+     "linescore": {
+      "currentInning": 9,
+      "inningState": "End",
+      "isTopInning": false,
+      "scheduledInnings": 9,
+      "teams": {
+       "away": {
+        "runs": 2,
+        "hits": 6,
+        "errors": 1
+       },
+       "home": {
+        "runs": 6,
+        "hits": 11,
+        "errors": 0
+       }
+      }
+     },
+     "venue": {
+      "id": 32,
+      "name": "American Family Field"
+     },
+     "seriesDescription": "Regular Season",
+     "gameNumber": 1,
+     "doubleHeader": "N"
+    },
+    {
+     "gamePk": 776545,
+     "link": "/api/v1.1/game/776545/feed/live",
+     "gameType": "R",
+     "season": "2025",
+     "gameDate": "2025-08-17T01:40:00Z",
+     "status": {
+      "abstractGameState": "Preview",
+      "codedGameState": "S",
+      "detailedState": "Scheduled",
+      "statusCode": "S",
+      "abstractGameCode": "P"
+     },
+     "teams": {
+      "away": {
+       "leagueRecord": {
+        "wins": 74,
+        "losses": 48,
+        "pct": ".556"
+       },
+       "team": {
+        "id": 119,
+        "name": "Los Angeles Dodgers",
+        "abbreviation": "LAD",
+        "teamName": "Dodgers",
+        "link": "/api/v1/teams/119"
+       },
+       "probablePitcher": {
+        "id": 605141,
+        "fullName": "Yoshinobu Yamamoto"
+       }
+      },
+      "home": {
+       "leagueRecord": {
+        "wins": 62,
+        "losses": 60,
+        "pct": ".556"
+       },
+       "team": {
+        "id": 137,
+        "name": "San Francisco Giants",
+        "abbreviation": "SF",
+        "teamName": "Giants",
+        "link": "/api/v1/teams/137"
+       },
+       "probablePitcher": {
+        "id": 670183,
+        "fullName": "Logan Webb"
+       }
+      }
+     },
+     "linescore": {
+      "currentInning": 0,
+      "inningState": "",
+      "scheduledInnings": 9,
+      "teams": {
+       "away": {},
+       "home": {}
+      }
+     },
+     "venue": {
+      "id": 2395,
+      "name": "Oracle Park"
+     },
+     "seriesDescription": "Regular Season",
+     "gameNumber": 1,
+     "doubleHeader": "N"
+    }
+   ]
+  }
+ ]
+}

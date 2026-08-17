@@ -59,6 +59,7 @@ Each row starts with the game id you pass to the other commands.
 ### `mlb watch` — follow a game live
 
 ```sh
+mlb watch                       # your default team's game (see `mlb config`)
 mlb watch 776543                # by game id
 mlb watch --team nyy            # today's Yankees game
 mlb watch sea                   # shorthand for --team sea
@@ -88,6 +89,42 @@ mlb standings --team nyy        # highlight a team
 mlb standings --wide            # add run differential, home/away, last 10
 mlb standings --season 2024     # a past season
 ```
+
+### `mlb config` — a default team
+
+Save the team you actually follow and stop typing `--team`:
+
+```sh
+mlb config --team sea    # save it
+mlb config               # show what's saved, and where
+mlb config --clear       # forget it
+```
+
+With a default set:
+
+| Command | Behavior |
+| --- | --- |
+| `mlb watch` | follows your team's game today — no game id needed |
+| `mlb box` | your team's box score |
+| `mlb standings` | highlights your team in its division |
+| `mlb games` | marks your team's game with `▸`, still shows the full slate |
+
+`mlb games` deliberately doesn't filter down to one team: it's how you see
+what else is on. Pass `--team` explicitly when you want it narrowed.
+
+An explicit `--team` always wins over the default, and the `MLB_TEAM`
+environment variable sits in between — handy for a one-off shell or for
+following someone else's team for an afternoon:
+
+```sh
+MLB_TEAM=nyy mlb watch          # just this once
+export MLB_TEAM=chc             # for this shell
+```
+
+Settings live in `~/.config/mlb-terminal/config.json` (or under
+`XDG_CONFIG_HOME`). Point `MLB_TERMINAL_CONFIG` at another path to keep a
+separate config. A missing or damaged file is never fatal — it reads as
+"nothing saved" and prints a warning to stderr.
 
 ## Team names
 
@@ -140,6 +177,7 @@ Layout:
 | `mlb/views/` | Renderers, one per view; each returns a list of lines |
 | `mlb/ansi.py` | Color, unicode fallbacks, width-aware padding/truncation |
 | `mlb/live.py` | The refresh loop and alternate-screen handling |
+| `mlb/config.py` | Saved settings (the default team) |
 | `mlb/cli.py` | Argument parsing and command wiring |
 
 Every payload field is read through `util.dig`, so a partial or unfamiliar

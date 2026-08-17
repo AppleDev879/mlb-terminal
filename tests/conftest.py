@@ -9,12 +9,19 @@ FIXTURES = os.path.join(ROOT, "tests", "fixtures")
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from mlb import ansi  # noqa: E402
+from mlb import ansi, config  # noqa: E402
 
 
 def load(name):
     with open(os.path.join(FIXTURES, name), encoding="utf-8") as fh:
         return json.load(fh)
+
+
+@pytest.fixture(autouse=True)
+def isolated_settings(tmp_path, monkeypatch):
+    """Keep every test away from the developer's real ~/.config and MLB_TEAM."""
+    monkeypatch.setenv(config.PATH_ENV, str(tmp_path / "config.json"))
+    monkeypatch.delenv(config.TEAM_ENV, raising=False)
 
 
 @pytest.fixture(autouse=True)

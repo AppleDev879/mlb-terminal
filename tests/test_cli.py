@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mlb import cli
+from mlb import cli, config
 from tests.conftest import load
 
 
@@ -176,6 +176,138 @@ def test_width_flag_is_respected(transport, capsys):
                     capsys)
     assert code == 0
     assert all(len(line) <= 50 for line in out.out.splitlines())
+
+
+# ------------------------------------------------------------ default team
+
+
+def test_config_shows_nothing_when_unset(capsys):
+    code, out = run(["config", "--no-color"], capsys)
+    assert code == 0
+    assert "no default team set" in out.out
+
+
+def test_config_saves_a_default_team(capsys):
+    code, out = run(["config", "--team", "mariners", "--no-color"], capsys)
+    assert code == 0
+    assert "Seattle Mariners" in out.out
+    assert config.default_team().abbr == "SEA"
+
+
+def test_config_shows_the_saved_team_and_its_source(capsys):
+    cli.main(["config", "--team", "sea", "--no-color"])
+    capsys.readouterr()
+    code, out = run(["config", "--no-color"], capsys)
+    assert code == 0
+    assert "Seattle Mariners (SEA)" in out.out
+    assert config.config_path() in out.out
+
+
+def test_config_reports_an_env_override(capsys, monkeypatch):
+    cli.main(["config", "--team", "sea", "--no-color"])
+    capsys.readouterr()
+    monkeypatch.setenv(config.TEAM_ENV, "nyy")
+    code, out = run(["config", "--no-color"], capsys)
+    assert code == 0
+    assert "New York Yankees" in out.out
+    assert config.TEAM_ENV in out.out
+    assert "overriding saved SEA" in out.out
+
+
+def test_config_clear(capsys):
+    cli.main(["config", "--team", "sea"])
+    capsys.readouterr()
+    code, out = run(["config", "--clear", "--no-color"], capsys)
+    assert code == 0
+    assert "cleared" in out.out
+    assert config.default_team() is None
+
+
+def test_config_rejects_team_and_clear_together(capsys):
+    code, out = run(["config", "--team", "sea", "--clear"], capsys)
+    assert code == 2
+    assert "not both" in out.err
+
+
+def test_config_rejects_an_unknown_team(capsys):
+    code, out = run(["config", "--team", "isotopes"], capsys)
+    assert code == 2
+    assert "unknown team" in out.err
+
+
+def test_watch_uses_the_default_team(transport, capsys):
+    cli.main(["config", "--team", "nyy"])
+    capsys.readouterr()
+    code, out = run(["watch", "--once", "--no-color", "--ascii"], capsys)
+    assert code == 0
+    assert "teamId=147" in "".join(transport.urls)
+    assert "Bot 7th" in out.out
+
+
+def test_box_uses_the_default_team(transport, capsys):
+    cli.main(["config", "--team", "sea"])
+    capsys.readouterr()
+    code, out = run(["box", "--no-color", "--ascii"], capsys)
+    assert code == 0
+    assert "teamId=136" in "".join(transport.urls)
+    assert "Aaron Judge" in out.out
+
+
+def test_an_explicit_team_beats_the_default(transport, capsys):
+    cli.main(["config", "--team", "nyy"])
+    capsys.readouterr()
+    code, _ = run(["watch", "--team", "chc", "--once", "--no-color"], capsys)
+    assert code == 0
+    assert "teamId=112" in "".join(transport.urls)
+    assert "teamId=147" not in "".join(transport.urls)
+
+
+def test_env_var_beats_the_saved_default(transport, capsys, monkeypatch):
+    cli.main(["config", "--team", "nyy"])
+    capsys.readouterr()
+    monkeypatch.setenv(config.TEAM_ENV, "sea")
+    code, _ = run(["watch", "--once", "--no-color"], capsys)
+    assert code == 0
+    assert "teamId=136" in "".join(transport.urls)
+
+
+def test_games_marks_the_default_team_without_filtering(transport, capsys):
+    cli.main(["config", "--team", "sea"])
+    capsys.readouterr()
+    code, out = run(["games", "--no-color", "--ascii"], capsys)
+    assert code == 0
+    # Every game still shows; the slate is not narrowed to one team.
+    assert "CHC @ MIL" in out.out and "LAD @ SF" in out.out
+    assert "teamId" not in transport.urls[0]
+
+
+def test_games_with_an_explicit_team_still_filters(transport, capsys):
+    cli.main(["config", "--team", "sea"])
+    capsys.readouterr()
+    code, _ = run(["games", "--team", "chc", "--no-color"], capsys)
+    assert code == 0
+    assert "teamId=112" in transport.urls[0]
+
+
+def test_standings_highlights_the_default_team(transport, capsys):
+    cli.main(["config", "--team", "nyy"])
+    capsys.readouterr()
+    code, out = run(["standings", "--no-color"], capsys)
+    assert code == 0
+    assert "New York Yankees" in out.out
+
+
+def test_a_broken_saved_team_does_not_block_a_game_id(transport, capsys):
+    config.save({"team": "ZZZ"})
+    code, out = run(["watch", "776543", "--once", "--no-color", "--ascii"], capsys)
+    assert code == 0
+    assert "Bot 7th" in out.out
+
+
+def test_watch_with_no_target_mentions_the_config_command(transport, capsys):
+    with pytest.raises(SystemExit) as exc:
+        cli.main(["watch"])
+    assert "config --team" in str(exc.value)
 
 
 def test_version_flag(capsys):

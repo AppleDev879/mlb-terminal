@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import os
 import sys
 from typing import List, Optional, Sequence
 
-from . import ansi, teams as team_ref
+from . import ansi, config, teams as team_ref
 from .api import ApiError, StatsAPI
 from .live import run as run_live
 from .models import LiveGame, ScheduledGame, parse_schedule, parse_standings
@@ -35,6 +36,7 @@ def build_parser() -> argparse.ArgumentParser:
             "  mlb watch --team sea         follow today's Mariners game\n"
             "  mlb box 776543               full box score\n"
             "  mlb standings --team nyy     division standings\n"
+            "  mlb config --team sea        save a default, then just `mlb watch`\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -87,6 +89,17 @@ def build_parser() -> argparse.ArgumentParser:
     standings.add_argument("--date", "-d", default=None, help="standings as of a date")
     standings.set_defaults(func=cmd_standings)
 
+    settings = sub.add_parser(
+        "config", parents=[common], help="show or change saved settings",
+        description=(
+            "Saved settings, currently a default team used whenever --team is "
+            "omitted. The MLB_TEAM environment variable overrides it."
+        ),
+    )
+    settings.add_argument("--team", "-t", default=None, help="save this team as the default")
+    settings.add_argument("--clear", action="store_true", help="forget the saved team")
+    settings.set_defaults(func=cmd_config)
+
     return parser
 
 
@@ -103,9 +116,22 @@ def _client(args) -> StatsAPI:
     return StatsAPI(timeout=args.timeout)
 
 
-def _find_game(client: StatsAPI, team_query: str, date: dt.date) -> ScheduledGame:
-    """Resolve --team plus a date to a single game, preferring the live one."""
-    team = team_ref.resolve_or_raise(team_query)
+def _default_team():
+    """The configured team, or None. Never raises — a bad value just warns."""
+    return config.default_team()
+
+
+def _team_arg(args):
+    """Resolve --team, falling back to the configured default."""
+    if getattr(args, "team", None):
+        return team_ref.resolve_or_raise(args.team)
+    return _default_team()
+
+
+def _find_game(client: StatsAPI, team, date: dt.date) -> ScheduledGame:
+    """Resolve a team plus a date to a single game, preferring the live one."""
+    if not isinstance(team, team_ref.Team):
+        team = team_ref.resolve_or_raise(team)
     payload = client.schedule(date=date, team_id=team.id)
     games = parse_schedule(payload)
     if not games:
@@ -128,11 +154,13 @@ def _resolve_game_pk(client: StatsAPI, args) -> int:
         # Allow `mlb watch sea` as shorthand for `--team sea`.
         game = _find_game(client, text, parse_date(getattr(args, "date", "today")))
         return int(game.game_pk)
-    if getattr(args, "team", None):
-        game = _find_game(client, args.team, parse_date(args.date))
+    team = _team_arg(args)
+    if team is not None:
+        game = _find_game(client, team, parse_date(args.date))
         return int(game.game_pk)
     raise SystemExit(
         f"give a game id or a team: `{PROG} watch 776543` or `{PROG} watch --team sea`.\n"
+        f"Set a default with `{PROG} config --team sea` to just run `{PROG} watch`.\n"
         f"Run `{PROG} games` to list today's game ids."
     )
 
@@ -147,15 +175,21 @@ def _emit(lines: List[str]) -> None:
 def cmd_games(args) -> int:
     client = _client(args)
     date = parse_date(args.date)
-    team = team_ref.resolve_or_raise(args.team) if args.team else None
     width = _width(args)
 
+    # An explicit --team narrows the slate; a configured default only marks it,
+    # since `mlb games` is how you see what else is on.
+    filter_team = team_ref.resolve_or_raise(args.team) if args.team else None
+    mark_team = filter_team or _default_team()
+
     def fetch():
-        return parse_schedule(client.schedule(date=date, team_id=team.id if team else None))
+        return parse_schedule(
+            client.schedule(date=date, team_id=filter_team.id if filter_team else None)
+        )
 
     def render(games):
         return games_view.render(games, date, width=width,
-                                 highlight_team=team.id if team else None)
+                                 highlight_team=mark_team.id if mark_team else None)
 
     if args.watch:
         return run_live(fetch, render, interval=max(5.0, args.interval))
@@ -212,12 +246,58 @@ def cmd_standings(args) -> int:
     if args.league:
         league_ids = (103,) if args.league.lower() == "al" else (104,)
 
-    team = team_ref.resolve_or_raise(args.team) if args.team else None
+    team = _team_arg(args)
     payload = client.standings(season=season, league_ids=league_ids, date=date)
     divisions = parse_standings(payload)
     _emit(standings_view.render(divisions, width=width,
                                 highlight=team.id if team else None,
                                 wide=args.wide, season=season))
+    return 0
+
+
+def cmd_config(args) -> int:
+    if args.team and args.clear:
+        print(f"{PROG}: pass either --team or --clear, not both", file=sys.stderr)
+        return 2
+
+    if args.team:
+        team = config.set_default_team(args.team)
+        _emit([
+            f"  default team: {ansi.paint(team.name, 'bold')} ({team.abbr})",
+            ansi.paint(f"  saved to {config.config_path()}", "dim"),
+            "",
+            ansi.paint(f"  `{PROG} watch` now follows the {team.short}.", "dim"),
+        ])
+        return 0
+
+    if args.clear:
+        if config.clear_default_team():
+            _emit([ansi.paint("  default team cleared.", "dim")])
+        else:
+            _emit([ansi.paint("  no default team was set.", "dim")])
+        return 0
+
+    return _show_config()
+
+
+def _show_config() -> int:
+    path = config.config_path()
+    stored = config.load().get("team")
+    override = os.environ.get(config.TEAM_ENV)
+    team = config.default_team()
+
+    lines = []
+    if team is None:
+        lines.append(ansi.paint("  no default team set", "dim"))
+        lines.append("")
+        lines.append(ansi.paint(f"  set one with `{PROG} config --team sea`", "dim"))
+    else:
+        source = f"{config.TEAM_ENV} environment variable" if override else path
+        lines.append(f"  default team: {ansi.paint(team.name, 'bold')} ({team.abbr})")
+        lines.append(ansi.paint(f"  from {source}", "dim"))
+        if override and stored and str(stored).upper() != team.abbr:
+            lines.append(ansi.paint(f"  (overriding saved {stored})", "dim"))
+    _emit(lines)
     return 0
 
 
